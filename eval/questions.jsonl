@@ -1,0 +1,30 @@
+{"id": "v1", "question": "Di cosa parla la tesi?", "answerable": true, "project": "volatility", "section": "Sintesi", "must": ["riassicura"]}
+{"id": "v2", "question": "Quante compagnie di riassicurazione analizza la tesi?", "answerable": true, "project": "volatility", "section": "Dati e fonti", "must": ["27"]}
+{"id": "v3", "question": "Qual è il valore del Total Connectedness Index?", "answerable": true, "project": "volatility", "section": "Metodo e architettura", "must": ["74,28"]}
+{"id": "v4", "question": "Quali compagnie trasmettono più volatilità alle altre?", "answerable": true, "project": "volatility", "section": "Risultati", "must": ["munich re"]}
+{"id": "v5", "question": "Che stimatore di volatilità usi nella tesi?", "answerable": true, "project": "volatility", "section": "Metodo e architettura", "must": ["yang-zhang"]}
+{"id": "v6", "question": "Quali strumenti di intelligenza artificiale sono stati usati nella tesi?", "answerable": true, "project": "volatility", "section": "Stack tecnico", "must": ["claude code"]}
+{"id": "v7", "question": "Quali sono i limiti della tesi?", "answerable": true, "project": "volatility", "section": "Limiti noti", "must": ["proxy"]}
+{"id": "v8", "question": "Quante rotture strutturali individua il test Bai-Perron?", "answerable": true, "project": "volatility", "section": "Risultati", "must": ["quattro"]}
+{"id": "v9", "question": "Perché non usi i dati dei contratti di retrocessione?", "answerable": true, "project": "volatility", "section": "Dati e fonti", "must": ["non sono pubblici"]}
+{"id": "f1", "question": "Che cosa mostra Fuel-analysis?", "answerable": true, "project": "fuel", "section": "Sintesi", "must": ["benzina"]}
+{"id": "f2", "question": "Da dove arrivano i prezzi dei carburanti?", "answerable": true, "project": "fuel", "section": "Dati e fonti", "must": ["weekly oil bulletin"]}
+{"id": "f3", "question": "Quando parte l'aggiornamento automatico dei dati?", "answerable": true, "project": "fuel", "section": "Aggiornamento automatico", "must": ["giovedì"]}
+{"id": "f4", "question": "Come calcoli la volatilità dei prezzi in Fuel-analysis?", "answerable": true, "project": "fuel", "section": "Metodo e architettura", "must": ["4 settimane"]}
+{"id": "f5", "question": "Perché il GPL è escluso dall'analisi?", "answerable": true, "project": "fuel", "section": "Dati e fonti", "must": ["disomogene"]}
+{"id": "f6", "question": "Dove è pubblicata la dashboard dei carburanti?", "answerable": true, "project": "fuel", "section": "Stack tecnico", "must": ["pythonanywhere"]}
+{"id": "f7", "question": "Come converti il prezzo del Brent in euro per litro?", "answerable": true, "project": "fuel", "section": "Metodo e architettura", "must": ["158,987"]}
+{"id": "f8", "question": "Quanti eventi contiene la cronologia di Fuel-analysis?", "answerable": true, "project": "fuel", "section": "Dati e fonti", "must": ["42"]}
+{"id": "t1", "question": "Come stima Tyre-deg il degrado delle gomme?", "answerable": true, "project": "tyre", "section": "Metodo e architettura", "must": ["regressione lineare"]}
+{"id": "t2", "question": "Perché Tyre-deg usa una cache delle gare invece di scaricarle a richiesta?", "answerable": true, "project": "tyre", "section": "Dati e fonti", "must": ["bloccano"]}
+{"id": "t3", "question": "Quanto carburante si assume alla partenza in Tyre-deg?", "answerable": true, "project": "tyre", "section": "Metodo e architettura", "must": ["110"]}
+{"id": "t4", "question": "Dove girano backend e frontend di Tyre-deg?", "answerable": true, "project": "tyre", "section": "Stack tecnico", "must": ["oracle", "netlify"]}
+{"id": "t5", "question": "Quante sessioni di gara tiene in memoria il server?", "answerable": true, "project": "tyre", "section": "Decisioni e alternative scartate", "must": ["3"]}
+{"id": "t6", "question": "Quali limiti ha il modello di degrado delle gomme?", "answerable": true, "project": "tyre", "section": "Limiti noti", "must": ["lineare"]}
+{"id": "t7", "question": "Il modello di Tyre-deg è stato validato?", "answerable": true, "project": "tyre", "section": "Risultati", "must": ["validazione"]}
+{"id": "u1", "question": "Qual è la tua ricetta preferita?", "answerable": false}
+{"id": "u2", "question": "Quanti utenti al mese ha la dashboard Fuel-analysis?", "answerable": false}
+{"id": "u3", "question": "Che voto di laurea hai preso?", "answerable": false}
+{"id": "u4", "question": "Qual è l'errore RMSE di Tyre-deg sui giri non usati nell'adattamento?", "answerable": false}
+{"id": "u5", "question": "Hai usato Kubernetes in uno dei tuoi progetti?", "answerable": false}
+{"id": "u6", "question": "Quanto guadagna un data scientist a Milano?", "answerable": false}

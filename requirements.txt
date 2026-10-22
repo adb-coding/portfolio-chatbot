@@ -1,0 +1,6 @@
+# Dipendenze dello Space (Hugging Face installa questo file)
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+-r requirements-index.txt
+llama-cpp-python>=0.3
+huggingface_hub>=0.24
+gradio>=5.0,<6

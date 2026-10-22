@@ -1,0 +1,5 @@
+# Solo indicizzazione (usato dalla GitHub Action e in locale per ingest.py / eval.py)
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+rank-bm25>=0.2.2
+numpy

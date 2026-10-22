@@ -1,0 +1,2 @@
+config,cos_max_unanswerable,cos_min_answerable,hit@4,mrr
+retrieval-k4,0.899,0.816,0.708,0.528
