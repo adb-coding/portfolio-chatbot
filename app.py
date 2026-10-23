@@ -13,6 +13,10 @@ from rag import RagBot  # noqa: E402  (import dopo la creazione dell'indice)
 
 bot = RagBot()
 
+MODEL_NAME = bot.llm.name
+short = MODEL_NAME.split("/")[-1]
+print(short)
+
 PROJECTS = ["Tutti i progetti"] + sorted({c["project"] for c in bot.retriever.chunks})
 EXAMPLES = [
     ["Di cosa parla la tesi e quali risultati ha ottenuto?"],
@@ -57,6 +61,7 @@ demo = gr.ChatInterface(
     description=(
         "Rispondo solo in base alle schede dei miei progetti (tesi, Fuel-analysis, Tyre-deg). "
         "Il modello è piccolo e gira su CPU gratuita: la prima risposta può richiedere qualche secondo."
+        f"<span class='badge'>{short}</span>"
     ),
     cache_examples=False,
     theme=theme,

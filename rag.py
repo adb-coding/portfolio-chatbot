@@ -32,7 +32,7 @@ def retrieval_query(question, history):
     return f"{prev[-1]} {question}" if prev else question
 
 
-def build_messages(question, hits):
+def build_messages(question, hits, history=None, max_turns=3):
     """Costruisce i messaggi per il modello: regole nel system, contesto + domanda nello user."""
     blocks = []
     for h in hits:
