@@ -28,9 +28,9 @@
   "repo": "https://github.com/adb-coding/fuel-analysis",
   "demo": "https://adbcoding.pythonanywhere.com/",
   "file": "fuel-analysis.md",
-  "text": "Fuel-analysis - Dati e fonti\nIn Fuel-analysis i dati arrivano da quattro fonti:\n- **Prezzi di benzina Euro95 e gasolio:** Weekly Oil Bulletin della Commissione Europea, file Excel con prezzi settimanali al consumo, con e senza tasse e accise. Nella versione della repository la serie parte dal 3 gennaio 2005 ed è settimanale.\n- **Petrolio Brent e cambio EUR/USD:** scaricati da Yahoo Finance con la libreria yfinance (ticker BZ=F ed EUR=X) e usati per esprimere il prezzo del greggio in euro per litro.\n- **Inflazione:** tasso annuo HICP dell'area euro, pubblicato dalla Banca Centrale Europea.\n- **Eventi:** una cronologia di 42 eventi tra il 2007 e il 2026 (geopolitici, di mercato, fiscali e legati alle politiche di Trump), con descrizione e categoria prodotte con l'aiuto di ChatGPT. Il dettaglio è maggiore per gli ultimi anni, con particolare attenzione al recente conflitto tra USA e Iran e alle misure fiscali italiane sui carburanti.\nSolo Euro95 e gasolio sono analizzati. I prezzi del GPL non sono considerati per la scarsità e la disomogeneità dei dati tra Paesi.",
-  "n_words": 170,
-  "n_tokens": 287
+  "text": "Fuel-analysis - Dati e fonti\nIn Fuel-analysis i dati arrivano da quattro fonti:\n- **Prezzi di benzina Euro95 e gasolio:** Weekly Oil Bulletin della Commissione Europea, file Excel con prezzi settimanali al consumo, con e senza tasse e accise. Nella versione della repository la serie parte dal 3 gennaio 2005 ed è settimanale.\n- **Petrolio Brent e cambio EUR/USD:** scaricati da Yahoo Finance con la libreria yfinance (ticker BZ=F ed EUR=X) e usati per esprimere il prezzo del greggio in euro per litro.\n- **Inflazione:** tasso annuo HICP dell'area euro, pubblicato dalla Banca Centrale Europea.\n- **Eventi:** una cronologia di 42 eventi tra il 2007 e il 2026 (geopolitici, di mercato, fiscali e legati alle politiche di Trump), con descrizione e categoria prodotte con l'aiuto di ChatGPT. Il dettaglio è maggiore per gli ultimi anni, con particolare attenzione al recente conflitto tra USA e Iran e alle misure fiscali italiane sui carburanti.\nSolo Euro95 e gasolio sono analizzati. Il prezzo del GPL non è considerato.",
+  "n_words": 160,
+  "n_tokens": 270
  },
  {
   "id": 3,
@@ -39,9 +39,9 @@
   "repo": "https://github.com/adb-coding/fuel-analysis",
   "demo": "https://adbcoding.pythonanywhere.com/",
   "file": "fuel-analysis.md",
-  "text": "Fuel-analysis - Metodo e architettura\nLa dashboard è organizzata in tre pagine, gestite da `app.py` e contenute nella cartella `pages/`:\n- **Price Chart** (pagina principale): grafico a linee dei prezzi settimanali con confronto tra Paesi e con la media UE; si può scegliere tra prezzo pieno, prezzo al netto delle tasse e componente fiscale (differenza tra i due). Mostra anche la variazione percentuale settimanale, la volatilità, la correlazione e l'inflazione.\n- **Map:** mappa coropletica dell'Europa per confrontare il prezzo di ogni Paese, attuale o in una data passata, con la media delle ultime 10 settimane.\n- **Events:** impatto degli eventi sul prezzo della benzina in Italia e confronto con le misure fiscali del governo italiano.\nI calcoli principali, in `helper.py`:\n- I prezzi del bollettino sono espressi per 1000 litri e vengono divisi per 1000 per ottenere euro al litro.\n- Il Brent in dollari al barile viene convertito in euro per litro moltiplicando per il cambio EUR/USD e dividendo per 158,987 (litri in un barile).\n- La variazione percentuale settimanale usa `pct_change`.",
-  "n_words": 168,
-  "n_tokens": 282
+  "text": "Fuel-analysis - Metodo e architettura\nLa dashboard è organizzata in tre pagine, gestite da `app.py` e contenute nella cartella `pages/`:\n- **Price Chart** (pagina principale): grafico a linee dei prezzi settimanali con confronto tra Paesi e con la media UE; si può scegliere tra prezzo pieno, prezzo al netto delle tasse e componente fiscale (differenza tra i due). Mostra anche la variazione percentuale settimanale, la volatilità, la correlazione e l'inflazione.\n- **Map:** mappa coropletica dell'Europa per confrontare il prezzo di ogni Paese, attuale o in una data passata, con la media delle ultime 10 settimane.\n- **Events:** impatto degli eventi sul prezzo della benzina in Italia e confronto con le misure fiscali del governo italiano.\nI calcoli principali, in `helper.py`:\n- I prezzi del bollettino sono espressi per 1000 litri e vengono divisi per 1000 per ottenere euro al litro.\n- Il Brent in dollari al barile viene convertito in euro per litro moltiplicando per il cambio EUR/USD e dividendo per 158,987 (litri in un barile).\n- La variazione percentuale settimanale usa la funzione `pct_change`.",
+  "n_words": 170,
+  "n_tokens": 284
  },
  {
   "id": 4,
@@ -50,9 +50,9 @@
   "repo": "https://github.com/adb-coding/fuel-analysis",
   "demo": "https://adbcoding.pythonanywhere.com/",
   "file": "fuel-analysis.md",
-  "text": "Fuel-analysis - Metodo e architettura\n- La variazione percentuale settimanale usa `pct_change`.\n- La volatilità è la deviazione standard mobile su 4 settimane delle variazioni percentuali.\n- La correlazione è quella di Pearson tra prezzo del petrolio, benzina e gasolio nella finestra di date scelta dall'utente. Appare come matrice di correlazione (heatmap) e come grafico a dispersione con retta OLS.\n- L'impatto di un evento è la variazione percentuale del prezzo Euro95 italiano tra la settimana più vicina alla data dell'evento e la settimana successiva.",
-  "n_words": 80,
-  "n_tokens": 141
+  "text": "Fuel-analysis - Metodo e architettura\n- La variazione percentuale settimanale usa la funzione `pct_change`.\n- La volatilità è la deviazione standard mobile su 4 settimane delle variazioni percentuali.\n- La correlazione è quella di Pearson tra prezzo del petrolio, benzina e gasolio nella finestra di date scelta dall'utente. Appare come matrice di correlazione (heatmap) e come grafico a dispersione con retta OLS.\n- L'impatto di un evento è la variazione percentuale del prezzo Euro95 italiano tra la settimana più vicina alla data dell'evento e la settimana successiva.",
+  "n_words": 82,
+  "n_tokens": 143
  },
  {
   "id": 5,
@@ -116,9 +116,9 @@
   "repo": "https://github.com/adb-coding/fuel-analysis",
   "demo": "https://adbcoding.pythonanywhere.com/",
   "file": "fuel-analysis.md",
-  "text": "Fuel-analysis - Cosa ho fatto io\nIl progetto è individuale: tutta la repository è opera di un solo autore (adb-coding). Ho scelto le fonti, scritto la pulizia dei dati e i calcoli, costruito le tre pagine della dashboard, impostato il workflow di aggiornamento automatico e pubblicato l'applicazione online.",
-  "n_words": 42,
-  "n_tokens": 77
+  "text": "Fuel-analysis - Cosa ho fatto io\nIl progetto è individuale: tutta la repository è opera di un solo autore (adb-coding). Ho scelto le fonti, scritto la pulizia dei dati e i calcoli, costruito le tre pagine della dashboard, impostato il workflow di aggiornamento automatico e pubblicato l'applicazione online us PythonAnywhere.",
+  "n_words": 44,
+  "n_tokens": 82
  },
  {
   "id": 11,
