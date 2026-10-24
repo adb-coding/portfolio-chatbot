@@ -1,8 +1,8 @@
 # Dipendenze dello Space (Hugging Face installa questo file)
 --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
 llama-cpp-python>=0.3
-huggingface_hub>=0.30
-gradio>=5.0,<6
+transformers>=4.44,<5
+huggingface_hub>=0.30,<1.0
 sentence-transformers>=3.0
 faiss-cpu>=1.8
 rank-bm25>=0.2.2
