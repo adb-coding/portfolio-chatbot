@@ -25,7 +25,7 @@ class Retriever:
         self.model = SentenceTransformer(MODEL_NAME)
         self.bm25 = BM25Okapi([tokenize(c["text"]) for c in self.chunks])
 
-    def search(self, query, k=4, project=None, rrf_k=60):
+    def search(self, query, k=6, project=None, rrf_k=60):
         import numpy as np
 
         # il corpus è piccolo: si classificano tutti i chunk, poi si filtra

@@ -92,7 +92,7 @@ def summarize_retrieval(rows, k):
     return out
 
 
-def eval_answers(bot, questions):
+def eval_answers(bot, questions, prompt="default"):
     rows = []
     for q in questions:
         t0 = time.time()
@@ -151,8 +151,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--retrieval-only", action="store_true")
     ap.add_argument("--k", type=int, default=4)
+    ap.add_argument("--ollama", action="store_true", help="Per utilizzare un modello su Ollama")
+    ap.add_argument("--ollama-name")
     ap.add_argument("--model-repo")
     ap.add_argument("--model-file")
+    ap.add_argument("--prompt", default="default", help="chiave di rag.PROMPTS")
     ap.add_argument("--min-cosine", type=float, default=0.0)
     ap.add_argument("--name", help="etichetta della configurazione nel CSV")
     args = ap.parse_args()
@@ -167,8 +170,12 @@ def main():
         name = args.name or f"retrieval-k{args.k}"
         write_csv(f"eval/details_{name}.csv", rows)
     else:
-        from rag import LocalLLM, RagBot
-        llm = LocalLLM(args.model_repo, args.model_file)
+        if args.ollama:
+            from rag import OllamaLLM, RagBot
+            llm = OllamaLLM(args.ollama_name)
+        else:
+            from rag import LocalLLM, RagBot
+            llm = LocalLLM(args.model_repo, args.model_file)
         bot = RagBot(retriever=retriever, llm=llm, top_k=args.k, min_cosine=args.min_cosine)
         rows = eval_answers(bot, questions)
         metrics = summarize_answers(rows)

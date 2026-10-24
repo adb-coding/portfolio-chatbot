@@ -24,7 +24,7 @@ In Fuel-analysis i dati arrivano da quattro fonti:
 - **Inflazione:** tasso annuo HICP dell'area euro, pubblicato dalla Banca Centrale Europea.
 - **Eventi:** una cronologia di 42 eventi tra il 2007 e il 2026 (geopolitici, di mercato, fiscali e legati alle politiche di Trump), con descrizione e categoria prodotte con l'aiuto di ChatGPT. Il dettaglio è maggiore per gli ultimi anni, con particolare attenzione al recente conflitto tra USA e Iran e alle misure fiscali italiane sui carburanti.
 
-Solo Euro95 e gasolio sono analizzati. I prezzi del GPL non sono considerati per la scarsità e la disomogeneità dei dati tra Paesi.
+Solo Euro95 e gasolio sono analizzati. Il prezzo del GPL non è considerato.
 
 ## Metodo e architettura
 
@@ -36,7 +36,7 @@ La dashboard è organizzata in tre pagine, gestite da `app.py` e contenute nella
 I calcoli principali, in `helper.py`:
 - I prezzi del bollettino sono espressi per 1000 litri e vengono divisi per 1000 per ottenere euro al litro.
 - Il Brent in dollari al barile viene convertito in euro per litro moltiplicando per il cambio EUR/USD e dividendo per 158,987 (litri in un barile).
-- La variazione percentuale settimanale usa `pct_change`.
+- La variazione percentuale settimanale usa la funzione `pct_change`.
 - La volatilità è la deviazione standard mobile su 4 settimane delle variazioni percentuali.
 - La correlazione è quella di Pearson tra prezzo del petrolio, benzina e gasolio nella finestra di date scelta dall'utente. Appare come matrice di correlazione (heatmap) e come grafico a dispersione con retta OLS.
 - L'impatto di un evento è la variazione percentuale del prezzo Euro95 italiano tra la settimana più vicina alla data dell'evento e la settimana successiva.
@@ -72,7 +72,7 @@ Fuel-analysis è uno strumento esplorativo e non riporta risultati numerici fiss
 
 ## Cosa ho fatto io
 
-Il progetto è individuale: tutta la repository è opera di un solo autore (adb-coding). Ho scelto le fonti, scritto la pulizia dei dati e i calcoli, costruito le tre pagine della dashboard, impostato il workflow di aggiornamento automatico e pubblicato l'applicazione online.
+Il progetto è individuale: tutta la repository è opera di un solo autore (adb-coding). Ho scelto le fonti, scritto la pulizia dei dati e i calcoli, costruito le tre pagine della dashboard, impostato il workflow di aggiornamento automatico e pubblicato l'applicazione online us PythonAnywhere.
 
 ## Come eseguirlo
 

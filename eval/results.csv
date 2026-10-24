@@ -1,2 +1,10 @@
-config,cos_max_unanswerable,cos_min_answerable,hit@4,mrr
-retrieval-k4,0.899,0.816,0.708,0.528
+avg_seconds,config,correct_refusal,cos_max_unanswerable,cos_min_answerable,coverage,false_refusal,hit@4,hit@6,mrr,ungrounded_rate
+,retrieval-k4,,0.899,0.816,,,0.708,,0.528,
+11.852,Qwen/Qwen2.5-1.5B-Instruct-GGUF/qwen2.5-1.5b-instruct-q4_k_m.gguf,0.833,,,0.75,0.042,,,,0.0
+16.322,Qwen/Qwen2.5-1.5B-Instruct-GGUF/qwen2.5-1.5b-instruct-q4_k_m.gguf,0.833,,,0.875,0.0,,,,0.0
+32.257,ollama/qwen3.5:4b,0.833,,,0.917,0.083,,,,0.0
+,retrieval-k4,,0.899,0.816,,,0.708,,0.528,
+,retrieval-k4,,0.899,0.816,,,0.708,,0.528,
+,retrieval-k6,,0.899,0.816,,,,0.875,0.56,
+,retrieval-k4,,0.899,0.816,,,0.708,,0.528,
+30.381,ollama/qwen3.5:4b,0.833,,,0.917,0.042,,,,0.0
