@@ -10,6 +10,13 @@ d'ambiente, senza toccare il codice:
     MIN_COSINE   sotto questa similarita' coseno del miglior chunk il bot rifiuta
                  senza chiamare l'LLM (default 0.0 = disattivato; si calibra con eval.py)
     N_CTX        finestra di contesto del modello     (default 4096)
+
+Backend (LLM_BACKEND): "llama_cpp" (CPU, GGUF), "ollama" (server locale) oppure
+"zerogpu" (modello Hugging Face con transformers su GPU ZeroGPU). Su uno Space
+ZeroGPU il backend viene scelto in automatico. Per "zerogpu":
+
+    HF_MODEL     modello Hugging Face (non GGUF)       (default Qwen/Qwen2.5-3B-Instruct)
+    GPU_SECONDS  durata richiesta della GPU a ogni risposta (default 60)
 """
 import os
 
@@ -127,9 +134,75 @@ class OllamaLLM:
         return out["message"]["content"].strip()
 
 
+# ---------------------------------------------------------------------------
+# Backend ZeroGPU: modello Hugging Face (non GGUF) con transformers.
+# Il modello si carica una volta all'avvio e va su "cuda"; la generazione e' in
+# una funzione decorata con @spaces.GPU, che chiede la GPU solo per la durata
+# della risposta. Fuori da uno Space (senza il pacchetto `spaces`) il decoratore
+# non fa nulla e il codice gira su cio' che torch trova.
+# ---------------------------------------------------------------------------
+try:
+    import spaces
+
+    _gpu = spaces.GPU(duration=int(os.getenv("GPU_SECONDS", "60")))
+except ImportError:  # esecuzione locale
+    def _gpu(fn):
+        return fn
+
+_ZERO = {}  # tokenizer e modello, riempiti da ZeroGPULLM
+
+
+@_gpu
+def _gpu_generate(messages, max_tokens, temperature):
+    """Generatore di pezzi di testo. Gira dentro la finestra di GPU concessa da ZeroGPU."""
+    from threading import Thread
+
+    from transformers import TextIteratorStreamer
+
+    tok, model = _ZERO["tok"], _ZERO["model"]
+    text = tok.apply_chat_template(
+        messages, tokenize=False, add_generation_prompt=True,
+        enable_thinking=False,  # ignorato dai modelli senza modalita' "thinking"
+    )
+    inputs = tok([text], return_tensors="pt").to(model.device)
+    streamer = TextIteratorStreamer(tok, skip_prompt=True, skip_special_tokens=True)
+    kwargs = dict(**inputs, streamer=streamer, max_new_tokens=max_tokens, do_sample=temperature > 0)
+    if temperature > 0:
+        kwargs["temperature"] = temperature
+    Thread(target=model.generate, kwargs=kwargs).start()
+    for piece in streamer:
+        yield piece
+
+
+class ZeroGPULLM:
+    """Wrapper su transformers per Spaces ZeroGPU."""
+
+    def __init__(self, model_id=None):
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        self.model_id = model_id or os.getenv("HF_MODEL", "Qwen/Qwen2.5-3B-Instruct")
+        self.name = self.model_id
+        _ZERO["tok"] = AutoTokenizer.from_pretrained(self.model_id)
+        model = AutoModelForCausalLM.from_pretrained(self.model_id, torch_dtype=torch.bfloat16)
+        # su ZeroGPU .to("cuda") a livello di avvio e' consentito: la GPU reale arriva dentro _gpu_generate
+        _ZERO["model"] = model.to("cuda") if torch.cuda.is_available() else model
+
+    def chat(self, messages, max_tokens=350, temperature=0.1, stream=False):
+        pieces = _gpu_generate(messages, max_tokens, temperature)
+        if stream:
+            return pieces
+        return "".join(pieces).strip()
+
+
 def make_llm():
-    if os.getenv("LLM_BACKEND", "llama_cpp") == "ollama":
+    # su uno Space ZeroGPU Hugging Face imposta SPACES_ZERO_GPU: il backend si sceglie da solo
+    default = "zerogpu" if os.getenv("SPACES_ZERO_GPU") else "llama_cpp"
+    backend = os.getenv("LLM_BACKEND", default)
+    if backend == "ollama":
         return OllamaLLM()
+    if backend == "zerogpu":
+        return ZeroGPULLM()
     return LocalLLM()
 
 
